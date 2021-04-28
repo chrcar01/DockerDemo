@@ -1,0 +1,12 @@
+CREATE DATABASE [OrdersDemo]
+GO
+
+USE [OrdersDemo]
+GO
+
+CREATE TABLE [Customer](
+  [CustomerId] INT IDENTITY(1,1) NOT NULL PRIMARY KEY CLUSTERED,
+  [FirstName] VARCHAR(50) NOT NULL,
+  [LastName] VARCHAR(50) NOT NULL
+)
+GO
