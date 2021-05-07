@@ -19,6 +19,10 @@ CREATE TABLE [Customer](
 )
 GO
 
+INSERT INTO [Customer]([FirstName], [LastName]) VALUES
+('Chris', 'Carter'),
+('Melissa', 'Carter');
+
 IF EXISTS (SELECT * from [master]..syslogins WHERE [name] = 'OrdersApp')
 	DROP LOGIN [OrdersApp]
 GO
