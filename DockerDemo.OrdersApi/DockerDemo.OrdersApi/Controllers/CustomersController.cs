@@ -5,6 +5,7 @@ using Microsoft.Data.SqlClient;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace DockerDemo.OrdersApi.Controllers
 {
@@ -79,5 +80,18 @@ namespace DockerDemo.OrdersApi.Controllers
             return customer;
         }
 
+        [HttpDelete("{customerId:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<ActionResult> DeleteCustomer(int customerId)
+        {
+            var sql = "DELETE FROM [Customer] WHERE [CustomerId]=@CustomerId;";
+            var connectionString = "server=.,1439;database=OrdersDemo;uid=OrdersApp;pwd=Password@12345;";
+            await using var cn = new SqlConnection(connectionString);
+            await using var cmd = new SqlCommand(sql, cn);
+            cmd.Parameters.Add("@CustomerId", SqlDbType.Int).Value = customerId;
+            await cn.OpenAsync();
+            await cmd.ExecuteNonQueryAsync();
+            return NoContent();
+        }
     }
 }
